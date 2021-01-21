@@ -40,3 +40,8 @@ def game_detail(request, pk):
 @login_required
 def game_counter(request, pk):
     pass
+
+
+@login_required
+def game_delete(request, pk):
+    pass
