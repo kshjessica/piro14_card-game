@@ -3,7 +3,37 @@
 {% block content %}
     <ol>
     {% for game in request.user.participated_games %}
-        <li class=""><a href="">{{game}}</a></li>
+        <li class="game_title">
+            <div>
+                <a href="">{{game}}</a>
+            </div>
+            <div>
+                {% if game.is_end %}
+                <div>
+                    결과:
+                    {% if request.user == game.winner %}
+                        승리
+                    {% elif request.user == game.loser %}
+                        패배
+                    {% else %}
+                        비김
+                    {% endif %}
+                </div>
+                {% elif request.user == game.host %}
+                    <div>
+                        진행중...
+                        <form action="{% url 'games:game_delete' game.pk %}" method="post">
+                            {% csrf_token %}
+                            <input type="submit" value="게임취소">
+                        </form>
+                    </div>
+                {% else %}
+                    <div>
+                        <a href=""><button>반격하기</button></a>
+                    </div>
+                {% endif %}
+            </div>
+        </li>
     {% endfor %}
     </ol>
 {% endblock content %}
