@@ -46,7 +46,7 @@ class Game(models.Model):
         ]
     )
     guest_card = models.PositiveIntegerField(
-        default=0,
+        default=5,
         validators=[
             MaxValueValidator(10),
             MinValueValidator(1),
