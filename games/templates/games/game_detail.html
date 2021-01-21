@@ -1,13 +1,88 @@
 {% extends 'games/layout.html' %}
 
 {% block content %}
-    {% if game.is_end %}
-        <div class="">끝났어요</div>
-    {% else %}
-        {% if request.user == game.host %}
-
+     <div class = "detail">
+        <h1>{{game.pk}}-{{game.host}} vs{{game.guest}}</h1>  
+        {% if game.is_end %}
+            {% if game.host_card == game.guest_card %}
+                <hr/>
+                <p>둘이 같은 숫자네용~ 유토피아</p>     
+                <hr/>
+                    {% if request.user.pk == game.host.pk%}
+                        <p>{{game.guest}}:{{game.guest_card}} </p>
+                        <p>나:{{game.host_card}}</p>
+                    {% else %}
+                        <p>{{game.host}}:{{game.host_card}} </p>
+                        <p>나:{{game.guest_card}}</p>
+                    {%endif%}
+                <hr/>
+                <p>결과: 무승부</p>
+                <hr/>
+                <p>점수:{{game.guest_card}}점</p>
+            {%elif game.host.pk == game.winner.pk %}
+                {%if game.host_card > game.guest_card%}
+                    <hr/>
+                    <p>숫자가 더 큰 사람이 이겼습니다!</p>   
+                     <hr/>
+                {%else%}
+                    <hr/>
+                    <p>숫자가 더 작은 사람이 이겼습니다!</p>   
+                    <hr/>
+                {%endif%}
+                {% if request.user.pk == game.host.pk%}
+                    <p>{{game.guest}}:{{game.guest_card}} </p>
+                    <p>나:{{game.host_card}}</p>
+                    <hr/>
+                    <p>결과: 승리</p>
+                    <hr/>
+                    <p>점수:{{game.host_card}}점</p>
+                {% else %}
+                    <p>{{game.host}}:{{game.host_card}} </p>
+                    <p>나:{{game.guest_card}}</p>
+                    <hr/>
+                    <p>결과: 패배</p>
+                    <hr/>
+                    <p>점수:-{{game.guest_card}}점</p>
+                {%endif%}
+            {%else%}
+                {%if game.host_card > game.guest_card%}
+                    <hr/>
+                    <p>숫자가 더 작은 사람이 이겼습니다!</p>   
+                    <hr/>
+                {%else%}
+                    <hr/>
+                    <p>숫자가 더 큰 사람이 이겼습니다!</p>   
+                    <hr/>
+                {%endif%}
+                {% if request.user.pk == game.host.pk%}
+                    <p>{{game.guest}}:{{game.guest_card}} </p>
+                    <p>나:{{game.host_card}}</p>
+                    <hr/>
+                    <p>결과: 패배</p>
+                    <hr/>
+                    <p>점수:-{{game.host_card}}점</p>
+                {% else %}
+                    <p>{{game.host}}:{{game.host_card}} </p>
+                    <p>나:{{game.guest_card}}</p>
+                    <hr/>
+                    <p>결과: 승리</p>
+                    <hr/>
+                    <p>점수:{{game.guest_card}}점</p>
+                {%endif%}
+            {%endif%}
+            
         {% else %}
-
-        {% endif %} 
-    {% endif %}
+            {% if request.user.pk == game.host.pk %}
+                <p>진행중</p>
+                <p>나:{{game.host_card}}</p>
+                <form action="{% url "games:game_delete" game.pk %}" method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="삭제하기">
+                </form>
+            {% else %}
+                <a href="{% url 'games:game_counter' game.pk %}">대응하기</a><br/>
+            {% endif %} 
+        {% endif %}
+        <a href="{% url 'games:game_list' %}">전적목록</a>
+    </div>
 {% endblock content %}
