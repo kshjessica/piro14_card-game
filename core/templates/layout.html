@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Piro Card Game!</title>
+</head>
+<body>
+    <header>
+        <div class="logo">PIRO CARDGAME</div>
+        <ul>
+            {% if request.user.is_authenticated %}
+                <li><a href="{% url "games:game_main" %}">게임 하기</a></li>
+                <li><a href="{% url "users:user_ranking" %}">랭킹 보기</a></li>
+                <li><a href="{% url "users:user_ranking" %}">로그아웃</a></li>
+            {% else %}
+                <li><a href="{% url "users:user_login" %}">로그인</a></li>
+            {% endif %}
+        </ul>
+    </header>
+
+    {% block content %}{% endblock content %}
+</body>
+</html>

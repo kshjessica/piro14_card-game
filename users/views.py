@@ -5,3 +5,11 @@ from django.shortcuts import render
 
 def user_login(request):
     pass
+
+
+def user_ranking(request):
+    pass
+
+
+def user_logout(request):
+    pass
