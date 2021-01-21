@@ -1,0 +1,9 @@
+{% extends 'games/layout.html' %}
+
+{% block content %}
+    <ol>
+    {% for game in request.user.participated_games %}
+        <li class=""><a href="">{{game}}</a></li>
+    {% endfor %}
+    </ol>
+{% endblock content %}

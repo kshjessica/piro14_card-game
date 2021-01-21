@@ -1,8 +1,6 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
-from random import shuffle
-
-CARD_MAX = 5
+from django.shortcuts import reverse
 
 
 class Game(models.Model):
@@ -13,22 +11,30 @@ class Game(models.Model):
         "users.User", on_delete=models.CASCADE, related_name="guested_games"
     )
 
-    CARD_SELECT = list(range(1, 11))
-    shuffle(CARD_SELECT)
-    CARD_SELECT = sorted(CARD_SELECT[:CARD_MAX])
-    for i in range(CARD_MAX):
-        CARD_SELECT[i] = (CARD_SELECT[i], CARD_SELECT[i])
-
     host_card = models.PositiveIntegerField(
-        choices=CARD_SELECT,
-        default=CARD_SELECT[0],
+        validators=[
+            MaxValueValidator(10),
+            MinValueValidator(1),
+        ]
     )
     guest_card = models.PositiveIntegerField(
-        choices=CARD_SELECT,
-        default=CARD_SELECT[0],
+        default=0,
+        validators=[
+            MaxValueValidator(10),
+            MinValueValidator(1),
+        ],
     )
 
     is_end = models.BooleanField(default=False)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    # def is_host(self, user):
+    #     return self.host == user
+
+    def __str__(self):
+        return f"{self.host.username} vs {self.guest.username}"
+
+    def get_absolute_url(self):
+        return reverse("author-detail", kwargs={"pk": self.pk})

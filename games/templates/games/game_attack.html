@@ -1,0 +1,19 @@
+{% extends 'games/layout.html' %}
+
+{% block content %}
+    <form action="" method="post">{% csrf_token %}
+        <label for="card_number">내가 고른 카드 : </label>
+        <select name="card_number" id="">
+            {% for num in card_numbers %}
+            <option value="{{num}}">{{num}}</option>
+            {% endfor %}
+        </select><br>
+        <label for="guest">공격할 상대는?</label>
+        <select name="guest" id="">
+            {% for user in users %}
+            <option value="{{user}}">{{user}}</option>
+            {% endfor %}
+        </select><br>
+        <input type="submit" value="">
+    </form>
+{% endblock content %}
