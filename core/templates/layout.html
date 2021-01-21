@@ -12,10 +12,10 @@
 <body>
     <header>
         <div class="logo">PIRO CARDGAME</div>
-        <ul>
+        <ul class="nav">
             {% if request.user.is_authenticated %}
-                <li><a href="{% url "games:game_attack" %}">게임 하기</a></li>
-                <li><a href="{% url "users:user_ranking" %}">랭킹 보기</a></li>
+                <li><a href="{% url "games:game_attack" %}">게임하기</a></li>
+                <li><a href="{% url "users:user_ranking" %}">랭킹보기</a></li>
                 <li><a href="{% url "users:user_logout" %}">로그아웃</a></li>
             {% else %}
                 <li><a href="{% url "users:user_login" %}">로그인</a></li>
