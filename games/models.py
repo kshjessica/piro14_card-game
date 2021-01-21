@@ -16,6 +16,26 @@ class Game(models.Model):
         "users.User", on_delete=models.CASCADE, related_name="guested_games"
     )
 
+    # 게임의 승자와 패자를 저장한다.
+    # Blank와 null을 허용하여
+    # 처음 게임이 시작될 땐 빈 칸으로 있다가
+    # game_counter에서 결과가 나올 때 저장한다.
+    winner = models.ForeignKey(
+        "users.User",
+        on_delete=models.CASCADE,
+        related_name="winned_games",
+        blank=True,
+        null=True,
+    )
+
+    loser = models.ForeignKey(
+        "users.User",
+        on_delete=models.CASCADE,
+        related_name="lost_games",
+        blank=True,
+        null=True,
+    )
+
     # host와 guest의 카드 숫자를 저장하는 필드이다.
     # 게임이 만들어질때 game_attack 뷰에서는 host_card만 입력받고
     # guest_card는 기본값 0을 넣어둔다.
