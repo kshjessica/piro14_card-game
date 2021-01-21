@@ -1,0 +1,13 @@
+{% extends 'games/layout.html' %}
+
+{% block content %}
+    {% if game.is_end %}
+        <div class="">끝났어요</div>
+    {% else %}
+        {% if request.user == game.host %}
+
+        {% else %}
+
+        {% endif %} 
+    {% endif %}
+{% endblock content %}

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import CreateView
 from random import shuffle
@@ -31,7 +31,10 @@ def game_list(request):
 
 @login_required
 def game_detail(request, pk):
-    pass
+    ctx = {
+        "game": get_object_or_404(Game, pk=pk),
+    }
+    return render(request, "games/game_detail.html", ctx)
 
 
 @login_required
