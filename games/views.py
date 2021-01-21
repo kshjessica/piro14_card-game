@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import CreateView
 from random import shuffle
@@ -44,4 +44,9 @@ def game_counter(request, pk):
 
 @login_required
 def game_delete(request, pk):
-    pass
+    if request.method == "POST":
+        game = get_object_or_404(Game, pk=pk)
+        game.delete()
+        return redirect("games:game_list")
+    else:
+        return redirect("games:game_list")
