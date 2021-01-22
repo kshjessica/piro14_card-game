@@ -1,0 +1,63 @@
+.attack-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 75%;
+
+  width: 80%;
+}
+
+.attack-form .select-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+}
+
+.select-container > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  border: #f5d042 1px solid;
+  border-radius: 10px;
+  height: 400px;
+  width: 300px;
+}
+
+.select-container div label {
+  font-size: 26px;
+  font-weight: 700;
+  font-family: "Noto Sans KR";
+}
+
+.select-container div select {
+  background-color: rgba(0, 0, 0, 0);
+  color: #f5d042;
+  font-size: 18px;
+  font-weight: 400;
+  border: none;
+}
+
+.select-container i {
+  font-size: 50px;
+}
+
+.attack-form input {
+  background-color: rgba(0, 0, 0, 0);
+  color: #f5d042;
+  width: 220px;
+  height: 80px;
+  border: 1px solid #f5d042;
+  border-radius: 40px;
+  font-size: 25px;
+  font-weight: 700;
+  margin-top: 20px;
+}
+
+.attack-form input:hover {
+  transition: 0.5s;
+  background-color: #f5d042;
+  color: #0a174e;
+}
