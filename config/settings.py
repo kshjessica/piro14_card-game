@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     # Django Apps
     "django.contrib.admin",
     "django.contrib.auth",
+    "django.contrib.sites",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
@@ -43,6 +44,13 @@ INSTALLED_APPS = [
     "users",
     "games",
     "core",
+    # allauth
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    # provider
+    "allauth.socialaccount.providers.google",
+    "allauth.socialaccount.providers.naver",
 ]
 
 MIDDLEWARE = [
@@ -131,3 +139,13 @@ STATICFILES_DIRS = [
 LOGIN_URL = "/users/login/"
 
 AUTH_USER_MODEL = "users.User"
+
+
+AUTHENTICATION_BACKENDS = (
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
+)
+
+SITE_ID = 1
+
+LOGIN_REDIRECT_URL = "/"
