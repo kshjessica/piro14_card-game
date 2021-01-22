@@ -1,0 +1,9 @@
+{% extends "games/layout.html" %}
+
+{% block content %}
+    <h1>로그인 페이지</h1>
+    <div>
+        <a href="/accounts/google/login/?process=login"><button>Google 로그인</button></a>
+        <a href="/accounts/naver/login/?process=login"><button>Naver 로그인</button></a>
+    </div>
+{% endblock content %}

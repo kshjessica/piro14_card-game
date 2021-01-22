@@ -1,0 +1,12 @@
+{% extends "games/layout.html" %}
+
+{% block content %}
+    <h1>로그아웃 페이지</h1>
+    <p>정말 로그아웃 할건가요????ㅠㅠ</p>
+    <div>
+        <form action="/accounts/logout/" method="POST">
+            {% csrf_token %}
+            <input type="submit" value="로그아웃">
+        </form>
+    </div>
+{% endblock content %}
