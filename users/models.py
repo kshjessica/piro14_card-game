@@ -22,6 +22,7 @@ class User(AbstractUser):
         hosted_games = self.hosted_games.all()
         guested_games = self.guested_games.all()
         participated_games = chain(hosted_games, guested_games)
+        print(participated_games)
         participated_games = sorted(participated_games, key=lambda x: x.updated_at)[
             ::-1
         ]
