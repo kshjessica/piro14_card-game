@@ -1,0 +1,57 @@
+.main_container {
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.main_container div {
+  width: 100%;
+  max-width: 1200px;
+}
+
+.game_list_page_info {
+  margin: 10px 0px;
+  padding: 10px;
+  background-color: #f5d042;
+  color: #0a174e;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1.2;
+  box-sizing: border-box;
+}
+
+.game_list_page_main {
+  height: 100%;
+  max-height: 65vh;
+  overflow: auto;
+}
+
+.game_list_page_main li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: #f5d042 dashed 1px;
+  padding: 10px 0px;
+}
+
+.game_list_page_main li > div:not(:first-child),
+.game_list_page_main li > div:not(:first-child) > div {
+  display: flex;
+  justify-content: center;
+}
+
+.game_list_page_main li .game_result div {
+  display: flex;
+  align-items: center;
+}
+
+.game_list_page_main li .game_result input[type="submit"],
+.game_list_page_main li .game_result button,
+.game_list_page_main li .game_detail button {
+  padding: 5px;
+  border: #f5d042 1px solid;
+  border-radius: 5px;
+  color: #f5d042;
+  background-color: #0a174e;
+  margin: 0px 10px;
+}
