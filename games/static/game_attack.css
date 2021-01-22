@@ -44,7 +44,7 @@
   font-size: 50px;
 }
 
-.attack-form input {
+.attack-form button {
   background-color: rgba(0, 0, 0, 0);
   color: #f5d042;
   width: 220px;
@@ -56,7 +56,7 @@
   margin-top: 20px;
 }
 
-.attack-form input:hover {
+.attack-form button:hover {
   transition: 0.5s;
   background-color: #f5d042;
   color: #0a174e;

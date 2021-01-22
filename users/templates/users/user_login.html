@@ -1,9 +1,19 @@
 {% extends "games/layout.html" %}
+{% load static %}
 
-{% block content %}
-    <h1>로그인 페이지</h1>
-    <div>
-        <a href="/accounts/google/login/?process=login"><button>Google 로그인</button></a>
-        <a href="/accounts/naver/login/?process=login"><button>Naver 로그인</button></a>
+{% block style %}
+    <link rel="stylesheet" href="{% static 'game_main.css' %}">
+    <link rel="stylesheet" href="{% static 'user_login.css' %}">
+{% endblock style %}
+
+{% block games_layout %}
+    <div class="main_container">
+        <div class="login_container">
+            <h1>로그인 페이지</h1>
+            <div class="login_btn_container">
+                <a href="/accounts/google/login/?process=login"><button>Google 로그인</button></a>
+                <a href="/accounts/naver/login/?process=login"><button>Naver 로그인</button></a>
+            </div>
+        </div>
     </div>
-{% endblock content %}
+{% endblock games_layout %}

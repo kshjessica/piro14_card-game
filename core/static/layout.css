@@ -1,5 +1,5 @@
 @import "reset.css";
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;400;700;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;400;700;800&display=swap");
 
 html {
   height: 100%;
@@ -93,5 +93,17 @@ footer {
 footer div {
   color: #0a174e;
   font-size: 25px;
-  font-weight: 900;
+  font-weight: 800;
+}
+
+button,
+a,
+input[type="submit"] {
+  transition: 0.3s;
+}
+
+button:hover,
+a:hover,
+input[type="submit"]:hover {
+  transform: scale(1.1);
 }

@@ -1,6 +1,18 @@
-{% extends 'games/layout.html' %}
-{% block content %}
-    {% for user in user_score%}
-        <p>{{ forloop.counter }}등 {{user.0}}님! 총점수: {{user.1}}점</p>
-    {% endfor %}
-{% endblock content %}
+{% extends "games/layout.html" %}
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'game_main.css' %}">
+    <link rel="stylesheet" href="{% static 'user_ranking.css' %}">
+{% endblock style %}
+
+
+{% block games_layout %}
+    <div class="main_container">
+        <div class="ranking_container">
+            {% for user in user_score%}
+                <p draggable="true">{{ forloop.counter }}등 {{user.0}}님! 총점수: {{user.1}}점</p>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock games_layout %}
