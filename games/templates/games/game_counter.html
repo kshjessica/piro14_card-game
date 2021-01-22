@@ -1,13 +1,28 @@
 {% extends 'games/layout.html' %}
+{% load static %}
 
-{% block content %}
-    <form method="post" action="{% url 'games:game_counter' pk %}">{% csrf_token %}
-        <label for="card_number">내가 고른 카드 : </label>
-        <select name="card_number" id="">
-            {% for num in card_numbers %}
-            <option value="{{num}}">{{num}}</option>
-            {% endfor %}
-        </select><br>
-        <button type="submit" class="submit_btn">반격하기!</button>
-    </form>
-{% endblock content %}
+{% block style %}
+    <link rel="stylesheet" href="{% static 'game_main.css' %}">
+    <link rel="stylesheet" href="{% static 'game_attack.css' %}">
+{% endblock style %}
+
+{% block games_layout %}
+    <div class="main_container">
+        <form class="attack-form" method="post" action="{% url 'games:game_counter' pk %}">{% csrf_token %}
+            <div class="select-container">
+                <div class="">
+                    <label for="card_number">내가 고른 카드 : </label>
+                    <select name="card_number" id="">
+                        {% for num in card_numbers %}
+                        <option value="{{num}}">{{num}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <button type="submit" class="submit_btn">반격하기!</button>
+        </form>
+    </div>
+{% endblock games_layout %}
+
+{% block script %}
+{% endblock script %}

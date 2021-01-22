@@ -6,6 +6,7 @@ from .models import Game
 from users.models import User
 import random
 
+
 def game_main(request):
     return render(request, "games/game_main.html")
 
@@ -13,28 +14,27 @@ def game_main(request):
 @login_required
 def game_attack(request):
     if request.method == "POST":
-        host=request.user
-        guest_name=request.POST.get('guest')
-        host_card=request.POST.get('card_number')
-        get_guest=User.objects.get(username=guest_name)
-        game=Game(host=host, guest=get_guest, host_card=host_card)
+        host = request.user
+        guest_name = request.POST.get("guest")
+        host_card = request.POST.get("card_number")
+        get_guest = User.objects.get(username=guest_name)
+        game = Game(host=host, guest=get_guest, host_card=host_card)
         game.save()
-        return redirect('games:game_detail', pk=game.pk)
-    
+        return redirect("games:game_detail", pk=game.pk)
+
     else:
         card_numbers = []
         while len(card_numbers) < 5:
-            temp=random.randint(1, 10)
+            temp = random.randint(1, 10)
             if temp not in card_numbers:
                 card_numbers.append(temp)
-        guests=list(User.objects.all())
+        guests = list(User.objects.all())
         guests.remove(request.user)
         ctx = {
-            'guests': guests,
-            'card_numbers': card_numbers,
+            "guests": guests,
+            "card_numbers": card_numbers,
         }
         return render(request, "games/game_attack.html", ctx)
-
 
 
 @login_required
@@ -52,10 +52,10 @@ def game_detail(request, pk):
 
 @login_required
 def game_counter(request, pk):
-    game=Game.objects.get(pk=pk)
+    game = Game.objects.get(pk=pk)
     if request.method == "POST":
-        guest_card=request.POST.get('card_number')
-        game.guest_card=int(guest_card)
+        guest_card = request.POST.get("card_number")
+        game.guest_card = int(guest_card)
         """
         winner와 loser를 지정한다.
         무승부일 경우 winner와 loser에는 아무 값도 할당되지 않는다.
@@ -72,37 +72,45 @@ def game_counter(request, pk):
                 if host_card > guest_card:
                     game.winner = game.host
                     game.loser = game.guest
+                    game.winner.win += host_card
+                    game.loser.lose += guest_card
                 else:
                     game.winner = game.guest
                     game.loser = game.host
+                    game.winner.win += guest_card
+                    game.loser.lose += host_card
+
             else:  # GM_DOWN
                 if host_card < guest_card:
                     game.winner = game.host
                     game.loser = game.guest
+                    game.winner.win += host_card
+                    game.loser.lose += guest_card
                 else:
                     game.winner = game.guest
                     game.loser = game.host
-
-            game.winner.win += 1
-            game.loser.lose += 1
+                    game.winner.win += guest_card
+                    game.loser.lose += host_card
 
         else:  # 무승부일 때
-            game.host.win += 1
-            game.guest.win += 1
+            game.host.win += host_card
+            game.guest.win += guest_card
 
         game.is_end = True
+        game.host.save()
+        game.guest.save()
         game.save()
-        return redirect('games:game_detail', pk=game.pk)
-    
+        return redirect("games:game_detail", pk=game.pk)
+
     else:
         card_numbers = []
         while len(card_numbers) < 5:
-            temp=random.randint(1, 10)
+            temp = random.randint(1, 10)
             if temp not in card_numbers:
                 card_numbers.append(temp)
         ctx = {
-            'pk':pk,
-            'card_numbers': card_numbers,
+            "pk": pk,
+            "card_numbers": card_numbers,
         }
         return render(request, "games/game_counter.html", ctx)
 
