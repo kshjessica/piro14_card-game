@@ -8,7 +8,7 @@
 
 {% block games_layout %}
     <div class="main_container">
-        <form class="attack-form" action="" method="post">{% csrf_token %}
+        <form class="attack-form" action="{% url 'games:game_attack' %}" method="post">{% csrf_token %}
             <div class="select-container">
                 <div class="">
                     <label for="card_number">내가 고른 카드</label>
@@ -22,13 +22,13 @@
                 <div class="">
                     <label for="guest">공격할 상대는?</label>
                     <select name="guest" id="">
-                        {% for user in users %}
-                        <option value="{{user}}">{{user}}</option>
+                        {% for guest in guests %}
+                        <option value="{{guest}}">{{guest}}</option>
                         {% endfor %}
                     </select>
                 </div>
             </div>
-            <input type="submit" value="attack!">
+            <button type="submit" class="submit_btn">공격하기!</button>
         </form>
     </div>
 {% endblock games_layout %}
