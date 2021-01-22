@@ -1,3 +1,14 @@
 {% extends 'layout.html' %}
+{% load static %}
 
-{% block content %}{% endblock content %}
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'games_layout.css' %}">
+{% block style %}{% endblock style %}
+{% endblock extra_head %}
+
+{% block content %}
+    <div class="container">
+        {% block games_layout %}
+        {% endblock games_layout %}
+    </div>
+{% endblock content %}

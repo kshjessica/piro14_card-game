@@ -1,52 +1,63 @@
 {% extends 'games/layout.html' %}
+{% load static %}
 
-{% block content %}
-    <div class="game_list_page_info">
-        <p>
-            현재 플레이어의 게임 전적과 결과를 보여주는 페이지입니다.
-            자신이 공격한 게임의 경우, 진행 중인 게임은 취소할 수 있어요!
-            다른 플레이어가 공격한 게임은 반격해보아요!
-        </p>
-    </div>
-    <div class="game_list_page_main">
-        <div>현재 플레이어:{{request.user}}</div>
-        <ol reversed>
-            {% for game in request.user.participated_games %}
-                <li>
-                    <div class="game_title">
-                        <a href="">{{game}}</a>
-                    </div>
-                    <div class="game_result">
-                        {% if game.is_end %}
-                        <div>
-                            결과:
-                            {% if request.user == game.winner %}
-                                승리
-                            {% elif request.user == game.loser %}
-                                패배
-                            {% else %}
-                                비김
-                            {% endif %}
-                        </div>
-                        {% elif request.user == game.host %}
-                            <div>
-                                진행중...
-                                <form action="{% url 'games:game_delete' game.pk %}" method="post">
-                                    {% csrf_token %}
-                                    <input type="submit" value="게임취소">
-                                </form>
+{% block style %}
+    <link rel="stylesheet" href="{% static 'game_main.css' %}">
+    <link rel="stylesheet" href="{% static 'game_list.css' %}">
+{% endblock style %}
+
+{% block games_layout %}
+    <div class="main_container">
+        <div class="">
+            <div class="game_list_page_info" draggable="true">
+                <p>
+                    현재 플레이어의 게임 전적과 결과를 보여주는 페이지입니다. <br>
+                    자신이 공격한 게임의 경우, 진행 중인 게임은 취소할 수 있어요! <br>
+                    다른 플레이어가 공격한 게임은 반격해보아요! <br>
+                </p>
+            </div>
+            <div class="game_list_page_main">
+                <div>현재 플레이어:{{request.user}}</div>
+                <hr>
+                <ol reversed>
+                    {% for game in request.user.participated_games %}
+                        <li>
+                            <div class="game_title">
+                                <a href="">{{game}}</a>
                             </div>
-                        {% else %}
-                            <div>
-                                <a href="{% url 'games:game_counter' game.pk %}"><button>반격하기</button></a>
+                            <div class="game_result">
+                                {% if game.is_end %}
+                                <div>
+                                    결과:
+                                    {% if request.user == game.winner %}
+                                        승리
+                                    {% elif request.user == game.loser %}
+                                        패배
+                                    {% else %}
+                                        비김
+                                    {% endif %}
+                                </div>
+                                {% elif request.user == game.host %}
+                                    <div>
+                                        진행중...
+                                        <form action="{% url 'games:game_delete' game.pk %}" method="post">
+                                            {% csrf_token %}
+                                            <input type="submit" value="게임취소">
+                                        </form>
+                                    </div>
+                                {% else %}
+                                    <div>
+                                        <a href="{% url 'games:game_counter' game.pk %}"><button>반격하기</button></a>
+                                    </div>
+                                {% endif %}
                             </div>
-                        {% endif %}
-                    </div>
-                    <div class="game_detail">
-                        <a href="{% url 'games:game_detail' pk=game.pk %}"><button>게임정보</button></a>
-                    </div>
-                </li>
-            {% endfor %}
-            </ol>
+                            <div class="game_detail">
+                                <a href="{% url 'games:game_detail' pk=game.pk %}"><button>게임정보</button></a>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ol>
+            </div>
+        </div>
     </div>
-{% endblock content %}
+{% endblock games_layout %}

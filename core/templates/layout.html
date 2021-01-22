@@ -5,24 +5,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Piro Card Game!</title>
+    <link rel="stylesheet" href="{% static 'layout.css' %}">
     {% block extra_head %}
-        <link rel="stylesheet" href="{% static 'layout.css' %}">
     {% endblock %}
+    <script src="https://kit.fontawesome.com/9ada8679dc.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <header>
-        <div class="logo">PIRO CARDGAME</div>
-        <ul class="nav">
-            {% if request.user.is_authenticated %}
-                <li><a href="{% url 'games:game_attack' %}">게임하기</a></li>
-                <li><a href="{% url 'users:user_ranking' %}">랭킹보기</a></li>
-                <li><a href="{% url 'users:user_logout' %}">로그아웃</a></li>
-            {% else %}
-                <li><a href="{% url 'users:user_login' %}">로그인</a></li>
-            {% endif %}
-        </ul>
+        <div class="header_container">
+            <a href="{% url 'games:game_main' %}"><div class="logo">PIRO CARDGAME</div></a>
+            <ul class="nav">
+                {% if request.user.is_authenticated %}
+                    <li><a href="{% url "games:game_attack" %}">게임하기</a></li>
+                    <li><a href="{% url "users:user_ranking" %}">랭킹보기</a></li>
+                    <li><a href="{% url "users:user_logout" %}">로그아웃</a></li>
+                {% else %}
+                    <li><a href="{% url "users:user_login" %}">로그인</a></li>
+                {% endif %}
+            </ul>
+        </div>
     </header>
 
     {% block content %}{% endblock content %}
+
+    <footer>
+        <div>과제 너무 어려워요</div>
+    </footer>
+
+ {% block script %}{% endblock script %}
+
 </body>
 </html>
