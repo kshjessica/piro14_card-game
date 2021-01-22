@@ -4,7 +4,7 @@ from django.views.generic.edit import CreateView
 from random import shuffle
 from .models import Game
 from users.models import User
-
+import random
 
 def game_main(request):
     return render(request, "games/game_main.html")
